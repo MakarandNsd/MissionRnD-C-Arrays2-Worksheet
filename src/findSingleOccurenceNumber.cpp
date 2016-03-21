@@ -15,6 +15,21 @@ There are better ways of solving the problem than a brute-force solution which i
 complexity .
 */
 
-int findSingleOccurenceNumber(int *A, int len) {
-	return -1;
+#include<stdio.h>
+
+int findSingleOccurenceNumber(int *A, int len)
+{
+	if (A == NULL || len <= 0)
+		return -1;
+	int once = 0, twice = 0, common = 0;
+	int i;
+	for (i = 0; i < len; i++)
+	{
+		twice = twice | (once&A[i]);
+		once ^= A[i];
+		common = ~(once&twice);
+		once &= common;
+		twice &= common;
+	}
+	return once;
 }
